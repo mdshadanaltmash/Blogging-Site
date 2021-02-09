@@ -14,7 +14,7 @@ class LoginForm(FlaskForm):
     submit=SubmitField('Log In!')
 
 
-class RegisterForm(FlaskForm):
+class RegistrationForm(FlaskForm):
 
     email=StringField('Email',validators=[DataRequired(),Email()])
     username=StringField('Username: ',validators=[DataRequired()])
