@@ -1,6 +1,6 @@
 from flask import url_for,render_template,request,Blueprint,flash,redirect
 from flask_login import login_user,logout_user,current_user,login_required
-from companyBlog import db
+from companyBlog.__init__ import db
 from companyBlog.models import User, Blog
 from companyBlog.users.forms import LoginForm,RegistrationForm,UpdateUserForm
 from companyBlog.users.picture_handler import add_profile_pic
@@ -56,7 +56,7 @@ def account():
         db.session.commit()
         flash('Your account has been updated')
         return(redirect(url_for('users.account')))
-    elif request.method='GET':
+    elif request.method=='GET':
         form.username.data=current_user.username
         form.email.data=current_user.email
     profile_image=url_for('static',filename='profile_pics/'+current_user.profile_image)

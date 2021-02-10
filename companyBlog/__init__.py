@@ -5,9 +5,10 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 
 app=Flask(__name__)
+app.config['SECRET_KEY']='mysecret'
 
 from companyBlog.core.views import core
-from companyBlog.user.views import users
+from companyBlog.users.views import users
 from companyBlog.error_pages.handlers import error_pages
 
 app.register_blueprint(core)
