@@ -1,7 +1,7 @@
-from flask import url_for,render_template,request,Blueprint,flash,redirect
-from flask_login import login_user,logout_user,current_user,login_required
-from companyBlog.__init__ import db
-from companyBlog.models import User, Blog
+from flask import url_for, render_template, request, Blueprint, flash, redirect
+from flask_login import login_user, logout_user, current_user, login_required
+from companyBlog import db
+from companyBlog.models import User, BlogPost
 from companyBlog.users.forms import LoginForm,RegistrationForm,UpdateUserForm
 from companyBlog.users.picture_handler import add_profile_pic
 
@@ -62,7 +62,7 @@ def account():
     profile_image=url_for('static',filename='profile_pics/'+current_user.profile_image)
     return render_template('account.html',form=form,profile_image=profile_image)
 
-@users.route('/<username')
+@users.route('/<username>')
 def user_post(username):
     page=request.args.get('page',1,type=int)
     user=User.query.filter_by(username=username).first_or_404()
