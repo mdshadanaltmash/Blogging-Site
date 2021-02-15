@@ -7,16 +7,12 @@ from companyBlog.blog_posts.forms import BlogPostForm
 blog_posts =Blueprint('blog_posts',__name__)
 
 
-@blog_posts.route('/create')
+@blog_posts.route('/create',methods=['GET','POST'])
 @login_required
 def create_post():
-
     form=BlogPostForm()
     if form.validate_on_submit():
-        blog_post=BlogPost(title=form.title.data,
-                            text=form.text.data(),
-                            user_id=current_user.id
-                            )
+        blog_post=BlogPost(title=form.title.data,text=form.text.data,user_id=current_user.id)
         db.session.add(blog_post)
         db.session.commit()
         flash('Post created!')
@@ -32,7 +28,7 @@ def blog_post(blog_post_id):
 
 
 @blog_posts.route('/<int:blog_post_id>/update',methods=['GET','POST'])
-@login_required()
+@login_required
 def update(blog_post_id):
     blog_post=BlogPost.query.get_or_404(blog_post_id)
 
@@ -54,7 +50,7 @@ def update(blog_post_id):
     return render_template('create_post.html',title='Updating',form=form)
 
 @blog_posts.route('/<int:blog_post_id>/delete',methods=['GET','POST'])
-@login_required()
+@login_required
 def delete(blog_post_id):
     blog_post=BlogPost.query.get_or_404(blog_post_id)
 
